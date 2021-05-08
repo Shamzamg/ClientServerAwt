@@ -13,7 +13,7 @@ public class Client {
     private String username;
 
     private TextArea chatTextArea;
-    private String chatText;
+    private String chatText = null;
     private Label errorLabel = null;
 
 
@@ -123,17 +123,13 @@ public class Client {
                     socket.receive(response);
 
                     String message = new String(responseBuffer, 0, response.getLength());
-                    String [] cleanedMessage = message.split("€€é&/:ù%");
 
-                    System.out.println("received: " + message + ", sent by address: " + response.getAddress());
-
-                    if(chatTextArea.getText() != "null"){
-                        chatText = chatText + '\n' + cleanedMessage[0] + " > " + cleanedMessage[1];
-                        chatTextArea.setText(chatText);
+                    if(!(chatText == null)){
+                        chatText = chatText + '\n' + message;
                     } else{
-                        chatText = cleanedMessage[0] + " > " + cleanedMessage[1];
-                        chatTextArea.setText(chatText);
+                        chatText = message;
                     }
+                    chatTextArea.setText(chatText);
 
                     jf.validate();
                 }
@@ -150,6 +146,7 @@ public class Client {
             port = -9999;
             username = null;
             connected = false;
+            chatText = null;
             chatTextArea = null;
             socket.close();
         }

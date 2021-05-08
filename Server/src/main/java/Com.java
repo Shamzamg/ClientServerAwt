@@ -65,7 +65,7 @@ public class Com{
                         server.delete(this);
                         communicate = false;
                     } else {
-                        message = clientUsername + "€€é&/:ù%" + message;
+                        message = clientUsername + " > " + message;
                         byte[] pongBuffer = message.getBytes();
 
                         //we pong at every client known from the server
